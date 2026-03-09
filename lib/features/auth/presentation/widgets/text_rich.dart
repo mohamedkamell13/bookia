@@ -24,6 +24,11 @@ class TextRich extends StatelessWidget {
           WidgetSpan(
             alignment: PlaceholderAlignment.middle,
             child: TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
               onPressed: onpressed,
               child: Text(
                 textButton,

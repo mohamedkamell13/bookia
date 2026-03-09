@@ -8,6 +8,6 @@ abstract class AppColors {
   static const blackColor = Color(0xff2F2F2F);
   static const accentColor = Color(0xffF7F8F9);
   static const borderColor = Color(0xffE8ECF4);
-  static const errorColor = Color(0xffF51212);
+  static const errorColor = Color(0xFFCD1D1D);
   static const creamyColor = Color(0xffF5EFE1);
 }

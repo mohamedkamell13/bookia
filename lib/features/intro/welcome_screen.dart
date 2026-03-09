@@ -4,8 +4,8 @@ import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:bookia/core/widgets/main_button.dart';
-import 'package:bookia/features/auth/pages/login_screen.dart';
-import 'package:bookia/features/auth/pages/register_screen.dart';
+import 'package:bookia/features/auth/presentation/pages/login_screen.dart';
+import 'package:bookia/features/auth/presentation/pages/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
