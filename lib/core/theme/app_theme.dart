@@ -46,7 +46,7 @@ abstract class AppThemes {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       selectedItemColor: AppColors.primaryColor,
-      unselectedItemColor: AppColors.greyColor,
+      unselectedItemColor: Colors.grey,
       backgroundColor: Colors.transparent,
       selectedLabelStyle: TextStyles.caption2.copyWith(
         fontWeight: FontWeight.w600,
@@ -56,6 +56,8 @@ abstract class AppThemes {
         fontWeight: FontWeight.w600,
         height: 2,
       ),
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
       elevation: 0,
     ),
     colorScheme: ColorScheme.fromSeed(

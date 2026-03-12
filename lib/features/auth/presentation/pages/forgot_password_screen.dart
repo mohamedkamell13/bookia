@@ -3,7 +3,6 @@ import 'package:bookia/core/functions/navigations.dart';
 import 'package:bookia/core/services/validators/app_validators.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
-import 'package:bookia/core/widgets/body_view.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
@@ -47,7 +46,8 @@ class ForgotPasswordScreen extends StatelessWidget {
           },
           builder: (context, state) {
             var cubit = context.read<AuthCubit>();
-            return BodyView(
+            return Padding(
+              padding: EdgeInsets.all(22),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

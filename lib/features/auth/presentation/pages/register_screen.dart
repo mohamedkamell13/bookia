@@ -1,9 +1,7 @@
-import 'dart:developer';
 import 'package:bookia/core/functions/dialogs.dart';
 import 'package:bookia/core/functions/navigations.dart';
 import 'package:bookia/core/services/validators/app_validators.dart';
 import 'package:bookia/core/styles/text_styles.dart';
-import 'package:bookia/core/widgets/body_view.dart';
 import 'package:bookia/core/widgets/custom_text_form_field.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
@@ -29,14 +27,18 @@ class RegisterScreen extends StatelessWidget {
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccessState) {
-              log('success');
+              pushToBase(context, LoginScreen());
             } else if (state is AuthErrorState) {
+              pop(context);
               showErrorDialog(context, 'Failed To Register');
+            } else if (state is AuthLoadingState) {
+              showLoadingDialog(context);
             }
           },
           builder: (context, state) {
             var cubit = context.read<AuthCubit>();
-            return BodyView(
+            return Padding(
+              padding: EdgeInsets.all(22),
               child: Form(
                 key: cubit.formKey,
                 child: SingleChildScrollView(

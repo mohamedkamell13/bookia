@@ -11,8 +11,13 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitialState());
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final forgotPasswordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final userNameController = TextEditingController();
+  final otpController = TextEditingController();
+  final newPasswordController = TextEditingController();
+  final confirmNewPasswordController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
   Future<void> login() async {
     emit(AuthLoadingState());
@@ -46,8 +51,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  final forgotPasswordController = TextEditingController();
-
   Future<void> forgotPassword() async {
     emit(AuthLoadingState());
     var response = await AuthRepo.forgotPassword(
@@ -59,8 +62,6 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthErrorState(messege: 'Failed'));
     }
   }
-
-  final otpController = TextEditingController();
 
   Future<void> checkForgetPassword({required String email}) async {
     emit(AuthLoadingState());
@@ -76,9 +77,6 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthErrorState(messege: 'Invalid Code'));
     }
   }
-
-  final newPasswordController = TextEditingController();
-  final confirmNewPasswordController = TextEditingController();
 
   Future<void> resetPassword(int verifyCode) async {
     emit(AuthLoadingState());
