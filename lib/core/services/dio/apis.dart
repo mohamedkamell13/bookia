@@ -5,4 +5,6 @@ abstract class Apis {
   static const forgotPassword = '/forget-password';
   static const checkForgetPassword = '/check-forget-password';
   static const resetPassword = '/reset-password';
+  static const sliders = '/sliders';
+  static const bestSellers = '/products-bestseller';
 }

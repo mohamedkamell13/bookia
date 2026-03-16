@@ -1,13 +1,12 @@
 import 'package:bookia/core/functions/dialogs.dart';
 import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/services/validators/app_validators.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
-import 'package:bookia/features/auth/presentation/pages/login_screen.dart';
-import 'package:bookia/features/auth/presentation/pages/otp_verfication_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_app_bar.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_footer.dart';
 import 'package:bookia/features/auth/presentation/widgets/email_text_form_field.dart';
@@ -32,12 +31,8 @@ class ForgotPasswordScreen extends StatelessWidget {
               pop(context);
               pushTo(
                 context,
-                OtpVerficationScreen(
-                  email: context
-                      .read<AuthCubit>()
-                      .forgotPasswordController
-                      .text,
-                ),
+                Routes.otpVerification,
+                extra: context.read<AuthCubit>().forgotPasswordController.text,
               );
             } else if (state is AuthErrorState) {
               pop(context);
@@ -79,7 +74,7 @@ class ForgotPasswordScreen extends StatelessWidget {
           textSpan: 'Remember Password?',
           textButton: "Login",
           onPressed: () {
-            pushReplaceMent(context, LoginScreen());
+            pushReplaceMent(context, Routes.login);
           },
         ),
       ),

@@ -1,12 +1,12 @@
 import 'package:bookia/core/functions/dialogs.dart';
 import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/services/validators/app_validators.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_text_form_field.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
-import 'package:bookia/features/auth/presentation/pages/login_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_app_bar.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_footer.dart';
 import 'package:bookia/features/auth/presentation/widgets/email_text_form_field.dart';
@@ -27,7 +27,7 @@ class RegisterScreen extends StatelessWidget {
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccessState) {
-              pushToBase(context, LoginScreen());
+              pushToBase(context, Routes.login);
             } else if (state is AuthErrorState) {
               pop(context);
               showErrorDialog(context, 'Failed To Register');
@@ -105,7 +105,7 @@ class RegisterScreen extends StatelessWidget {
           textSpan: 'Already have an account?',
           textButton: "Login Now",
           onPressed: () {
-            pushTo(context, LoginScreen());
+            pushTo(context, Routes.login);
           },
         ),
       ),

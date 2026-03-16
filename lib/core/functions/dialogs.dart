@@ -1,6 +1,8 @@
+import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 void showErrorDialog(BuildContext context, String erorrMsg) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -19,9 +21,9 @@ void showErrorDialog(BuildContext context, String erorrMsg) {
 
 void showLoadingDialog(BuildContext context) {
   showDialog(
+    context: context,
     barrierDismissible: false,
     barrierColor: AppColors.blackColor.withValues(alpha: 0.7),
-    context: context,
-    builder: (context) => Center(child: CircularProgressIndicator()),
+    builder: (context) => Center(child: Lottie.asset(AppImages.loading)),
   );
 }

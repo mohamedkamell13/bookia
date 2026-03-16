@@ -1,12 +1,12 @@
 import 'package:bookia/core/functions/dialogs.dart';
 import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/services/validators/app_validators.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
-import 'package:bookia/features/auth/presentation/pages/password_changed.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_app_bar.dart';
 import 'package:bookia/features/auth/presentation/widgets/password_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class NewPasswordScreen extends StatelessWidget {
               showLoadingDialog(context);
             } else if (state is AuthSuccessState) {
               pop(context);
-              pushReplaceMent(context, PasswordChanged());
+              pushReplaceMent(context, Routes.passwordChanged);
             } else if (state is AuthErrorState) {
               pop(context);
               showErrorDialog(context, 'Failed To Reset Password');

@@ -1,15 +1,15 @@
 import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:bookia/core/widgets/main_button.dart';
-import 'package:bookia/features/auth/presentation/pages/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-class PasswordChanged extends StatelessWidget {
-  const PasswordChanged({super.key});
+class PasswordChangedScreen extends StatelessWidget {
+  const PasswordChangedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class PasswordChanged extends StatelessWidget {
               MainButton(
                 text: 'Back To Login',
                 onPressed: () {
-                  pushReplaceMent(context, LoginScreen());
+                  pushReplaceMent(context, Routes.login);
                 },
               ),
             ],

@@ -1,13 +1,12 @@
 import 'package:bookia/core/functions/dialogs.dart';
 import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_pinput.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
-import 'package:bookia/features/auth/presentation/pages/forgot_password_screen.dart';
-import 'package:bookia/features/auth/presentation/pages/new_password_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_app_bar.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_footer.dart';
 import 'package:flutter/material.dart';
@@ -32,12 +31,9 @@ class OtpVerficationScreen extends StatelessWidget {
               pop(context);
               pushTo(
                 context,
-                NewPasswordScreen(
-                  verifyCode:
-                      int.tryParse(
-                        context.read<AuthCubit>().otpController.text,
-                      ) ??
-                      0,
+                Routes.newPassword,
+                extra: int.tryParse(
+                  context.read<AuthCubit>().otpController.text,
                 ),
               );
             } else if (state is AuthErrorState) {
@@ -76,7 +72,7 @@ class OtpVerficationScreen extends StatelessWidget {
           textSpan: 'Didn\'t recieved code?',
           textButton: "Resend",
           onPressed: () {
-            pushReplaceMent(context, ForgotPasswordScreen());
+            pushReplaceMent(context, Routes.forgotPassword);
           },
         ),
       ),

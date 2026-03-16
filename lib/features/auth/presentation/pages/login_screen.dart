@@ -1,12 +1,11 @@
 import 'package:bookia/core/functions/dialogs.dart';
 import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
-import 'package:bookia/features/auth/presentation/pages/register_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_app_bar.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_footer.dart';
 import 'package:bookia/features/auth/presentation/widgets/login_form.dart';
-import 'package:bookia/features/main/main_app_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +23,7 @@ class LoginScreen extends StatelessWidget {
             if (state is AuthLoadingState) {
               showLoadingDialog(context);
             } else if (state is AuthSuccessState) {
-              pushToBase(context, MainAppScreen());
+              pushToBase(context, Routes.main);
             } else if (state is AuthErrorState) {
               pop(context);
               showErrorDialog(context, 'Failed To Login');
@@ -42,7 +41,7 @@ class LoginScreen extends StatelessWidget {
           textSpan: 'Don\'t have an account?',
           textButton: "Register Now",
           onPressed: () {
-            pushReplaceMent(context, RegisterScreen());
+            pushReplaceMent(context, Routes.main);
           },
         ),
       ),

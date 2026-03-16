@@ -1,7 +1,7 @@
 import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
-import 'package:bookia/features/auth/presentation/pages/forgot_password_screen.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordButton extends StatelessWidget {
@@ -14,7 +14,7 @@ class ForgotPasswordButton extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            pushTo(context, ForgotPasswordScreen());
+            pushTo(context, Routes.forgotPassword);
           },
           child: Text(
             'Forgot Password?',
