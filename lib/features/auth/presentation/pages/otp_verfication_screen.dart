@@ -38,7 +38,7 @@ class OtpVerficationScreen extends StatelessWidget {
               );
             } else if (state is AuthErrorState) {
               pop(context);
-              showErrorDialog(context, 'Invalid Code');
+              showMyDialog(context, 'Invalid Code');
             }
           },
           builder: (context, state) {

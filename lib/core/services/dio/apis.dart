@@ -7,4 +7,7 @@ abstract class Apis {
   static const resetPassword = '/reset-password';
   static const sliders = '/sliders';
   static const bestSellers = '/products-bestseller';
+  static const wishlist = '/wishlist';
+  static const addToWishlist = '/add-to-wishlist';
+  static const removeFromWishlist = '/remove-from-wishlist';
 }

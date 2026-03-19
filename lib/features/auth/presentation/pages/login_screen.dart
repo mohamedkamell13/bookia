@@ -14,36 +14,35 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: Scaffold(
-        appBar: AuthAppBar(),
-        body: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is AuthLoadingState) {
-              showLoadingDialog(context);
-            } else if (state is AuthSuccessState) {
-              pushToBase(context, Routes.main);
-            } else if (state is AuthErrorState) {
-              pop(context);
-              showErrorDialog(context, 'Failed To Login');
-            }
-          },
-          builder: (context, state) {
-            var cubit = context.read<AuthCubit>();
-            return Padding(
-              padding: EdgeInsets.all(22),
-              child: LoginForm(cubit: cubit),
-            );
-          },
-        ),
-        bottomNavigationBar: AuthFooter(
-          textSpan: 'Don\'t have an account?',
-          textButton: "Register Now",
-          onPressed: () {
-            pushReplaceMent(context, Routes.main);
-          },
-        ),
+    return Scaffold(
+      appBar: AuthAppBar(),
+      body: _loginBody(context),
+      bottomNavigationBar: AuthFooter(
+        textSpan: 'Don\'t have an account?',
+        textButton: "Register Now",
+        onPressed: () {
+          pushReplaceMent(context, Routes.register);
+        },
+      ),
+    );
+  }
+
+  Widget _loginBody(BuildContext context) {
+    var cubit = context.read<AuthCubit>();
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is AuthLoadingState) {
+          showLoadingDialog(context);
+        } else if (state is AuthSuccessState) {
+          pushToBase(context, Routes.main);
+        } else if (state is AuthErrorState) {
+          pop(context);
+          showMyDialog(context, 'Failed To Login');
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.all(22),
+        child: LoginForm(cubit: cubit),
       ),
     );
   }

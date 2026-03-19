@@ -7,4 +7,4 @@ bookStore Application with flutter
 bookia is a bookstore application
 
 ## ScreenShots
-[splash screen](splash.png) ![welcome screen](welcome.png) ![login screen](login.png) [register screen](register.png) ![Forgot Password](Screenshot_1773065881.png) ![Failed Forgot Password](Screenshot_1773065906.png) ![OTP](Screenshot_1773066074.png) ![create new pass](Screenshot_1773066122.png) ![password changed](Screenshot_1773066133.png) ![home screen](Screenshot_1773635724.png)![book details](Screenshot_1773634776.png)
+[splash screen](splash.png) ![welcome screen](welcome.png) ![login screen](login.png) [register screen](register.png) ![Forgot Password](Screenshot_1773065881.png) ![Failed Forgot Password](Screenshot_1773065906.png) ![OTP](Screenshot_1773066074.png) ![create new pass](Screenshot_1773066122.png) ![password changed](Screenshot_1773066133.png) ![home screen](Screenshot_1773635724.png)![book details](Screenshot_1773634776.png)![wishlist](Screenshot_1773940375.png)

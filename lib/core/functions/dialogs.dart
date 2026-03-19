@@ -1,20 +1,33 @@
 import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/styles/colors.dart';
-import 'package:bookia/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 
-void showErrorDialog(BuildContext context, String erorrMsg) {
+enum DialogType { success, error }
+
+void showMyDialog(
+  BuildContext context,
+  String errorMsg, {
+  DialogType type = DialogType.error,
+}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      backgroundColor: AppColors.errorColor,
-
       behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.all(24),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(8),
+      duration: const Duration(milliseconds: 300),
+      margin: const EdgeInsets.all(10),
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: type == DialogType.error
+          ? AppColors.errorColor
+          : Colors.green,
+      content: Row(
+        children: [
+          const Icon(Icons.error, color: AppColors.backgroundColor, size: 20),
+          const Gap(10),
+          Text(errorMsg),
+        ],
       ),
-      content: Center(child: Text(erorrMsg, style: TextStyles.body)),
     ),
   );
 }

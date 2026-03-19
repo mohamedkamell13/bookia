@@ -32,7 +32,7 @@ class NewPasswordScreen extends StatelessWidget {
               pushReplaceMent(context, Routes.passwordChanged);
             } else if (state is AuthErrorState) {
               pop(context);
-              showErrorDialog(context, 'Failed To Reset Password');
+              showMyDialog(context, 'Failed To Reset Password');
             }
           },
           builder: (context, state) {

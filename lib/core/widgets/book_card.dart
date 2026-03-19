@@ -1,20 +1,31 @@
+import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/functions/navigations.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/home/data/models/best_seller_response/product.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class BookCard extends StatelessWidget {
-  const BookCard({super.key, required this.product});
+  const BookCard({
+    super.key,
+    required this.product,
+    this.onRemoveFromWishlist,
+    this.onRefresh,
+  });
   final Product product;
+  final Function()? onRemoveFromWishlist;
+  final Function()? onRefresh;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        pushTo(context, Routes.bookDetails, extra: product);
+        pushTo(context, Routes.bookDetails, extra: product).then((value) {
+          onRefresh?.call();
+        });
       },
       child: Container(
         padding: EdgeInsets.all(10),
@@ -48,15 +59,28 @@ class BookCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  child: Text(product.price ?? '', style: TextStyles.body),
+                  child: Text(
+                    '\$${product.priceAfterDiscount ?? product.price}',
+                    style: TextStyles.body,
+                  ),
                 ),
-                MainButton(
-                  bgColor: AppColors.blackColor,
-                  text: 'Buy',
-                  onPressed: () {},
-                  minWidth: 70,
-                  minHeight: 28,
-                ),
+                onRemoveFromWishlist != null
+                    ? IconButton(
+                        onPressed: onRemoveFromWishlist,
+                        icon: CustomSvgPicture(path: AppImages.remove),
+                        style: IconButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          minimumSize: Size(30, 30),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                      )
+                    : MainButton(
+                        bgColor: AppColors.blackColor,
+                        text: 'Buy',
+                        onPressed: () {},
+                        minWidth: 70,
+                        minHeight: 28,
+                      ),
               ],
             ),
           ],

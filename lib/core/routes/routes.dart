@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+var globalContext = GlobalKey<NavigatorState>();
+
 class Routes {
   static String splash = '/';
   static String welcome = '/welcome';
@@ -11,5 +13,4 @@ class Routes {
   static String passwordChanged = '/passwordChanged';
   static String main = '/main';
   static String bookDetails = '/bookDetails';
-  var globalContext = GlobalKey<NavigatorState>();
 }

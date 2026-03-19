@@ -20,95 +20,96 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: Scaffold(
-        appBar: AuthAppBar(),
-        body: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is AuthSuccessState) {
-              pushToBase(context, Routes.login);
-            } else if (state is AuthErrorState) {
-              pop(context);
-              showErrorDialog(context, 'Failed To Register');
-            } else if (state is AuthLoadingState) {
-              showLoadingDialog(context);
-            }
-          },
-          builder: (context, state) {
-            var cubit = context.read<AuthCubit>();
-            return Padding(
-              padding: EdgeInsets.all(22),
-              child: Form(
-                key: cubit.formKey,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text(
-                        'Hello! Register to get started',
-                        style: TextStyles.headline,
-                      ),
-                      Gap(32),
-                      CustomTextFormField(
-                        controller: cubit.userNameController,
-                        hintText: 'Username',
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        validator: AppValidators.username,
-                      ),
-                      Gap(11),
-                      EmailTextFormField(
-                        emailController: cubit.emailController,
-                        hintText: 'Email',
-                        validator: AppValidators.email,
-                      ),
-                      Gap(13),
-                      PasswordTextFormField(
-                        controller: cubit.passwordController,
-                        hintText: 'Password',
-                        validator: AppValidators.password,
-                      ),
-                      Gap(12),
-                      PasswordTextFormField(
-                        controller: cubit.confirmPasswordController,
-                        hintText: 'Confirm Password',
-                        validator: (input) {
-                          if (input == null || input.isEmpty) {
-                            return 'Please confirm your password';
-                          } else if (input != cubit.passwordController.text) {
-                            return 'Passwords do not match';
-                          }
-                          return null;
-                        },
-                      ),
-                      Gap(30),
-                      if (state is AuthLoadingState) ...{
-                        CircularProgressIndicator(),
-                      } else ...{
-                        MainButton(
-                          text: 'Register',
-                          onPressed: () {
-                            if (cubit.formKey.currentState!.validate()) {
-                              cubit.register();
-                            }
-                          },
-                        ),
-                      },
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-        bottomNavigationBar: AuthFooter(
-          textSpan: 'Already have an account?',
-          textButton: "Login Now",
-          onPressed: () {
-            pushTo(context, Routes.login);
-          },
-        ),
+    return Scaffold(
+      appBar: AuthAppBar(),
+      body: _registerBody(context),
+      bottomNavigationBar: AuthFooter(
+        textSpan: 'Already have an account?',
+        textButton: "Login Now",
+        onPressed: () {
+          pushTo(context, Routes.login);
+        },
       ),
+    );
+  }
+
+  Widget _registerBody(BuildContext context) {
+    var cubit = context.read<AuthCubit>();
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is AuthLoadingState) {
+          showLoadingDialog(context);
+        } else if (state is AuthSuccessState) {
+          pushToBase(context, Routes.login);
+        } else if (state is AuthErrorState) {
+          pop(context);
+          showMyDialog(context, 'Failed To Register');
+        }
+      },
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.all(22),
+          child: Form(
+            key: cubit.formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text(
+                    'Hello! Register to get started',
+                    style: TextStyles.headline,
+                  ),
+                  Gap(32),
+                  CustomTextFormField(
+                    controller: cubit.userNameController,
+                    hintText: 'Username',
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: AppValidators.username,
+                  ),
+                  Gap(11),
+                  EmailTextFormField(
+                    emailController: cubit.emailController,
+                    hintText: 'Email',
+                    validator: AppValidators.email,
+                  ),
+                  Gap(13),
+                  PasswordTextFormField(
+                    controller: cubit.passwordController,
+                    hintText: 'Password',
+                    validator: AppValidators.password,
+                  ),
+                  Gap(12),
+                  PasswordTextFormField(
+                    controller: cubit.confirmPasswordController,
+                    hintText: 'Confirm Password',
+                    validator: (input) {
+                      if (input == null || input.isEmpty) {
+                        return 'Please confirm your password';
+                      } else if (input != cubit.passwordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                  ),
+                  Gap(30),
+                  if (state is AuthLoadingState) ...{
+                    CircularProgressIndicator(),
+                  } else ...{
+                    MainButton(
+                      text: 'Register',
+                      onPressed: () {
+                        if (cubit.formKey.currentState!.validate()) {
+                          cubit.register();
+                        }
+                      },
+                    ),
+                  },
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

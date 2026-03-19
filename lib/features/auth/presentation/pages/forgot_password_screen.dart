@@ -36,7 +36,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               );
             } else if (state is AuthErrorState) {
               pop(context);
-              showErrorDialog(context, 'Failed To Send Code');
+              showMyDialog(context, 'Failed To Send Code');
             }
           },
           builder: (context, state) {

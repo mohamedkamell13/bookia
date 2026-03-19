@@ -43,7 +43,7 @@ class BestSellerBuilder extends StatelessWidget {
             children: [
               TextShimmer(width: 120),
               GridShimmer(
-                itemCount: bestSellers.length,
+                itemCount: 2,
                 crossAxisCount: 2,
                 mainAxisSpacing: 11,
                 crossAxisSpacing: 11,
