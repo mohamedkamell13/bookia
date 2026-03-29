@@ -7,10 +7,20 @@ import 'package:bookia/features/auth/presentation/pages/otp_verfication_screen.d
 import 'package:bookia/features/auth/presentation/pages/password_changed.dart';
 import 'package:bookia/features/auth/presentation/pages/register_screen.dart';
 import 'package:bookia/features/book_details/presentation/page/book_details_screen.dart';
+import 'package:bookia/features/contact_us/presentation/cubit/contact_us_cubit.dart';
+import 'package:bookia/features/contact_us/presentation/page/contact_us_screen.dart';
+import 'package:bookia/features/faq/presentation/cubit/faq_cubit.dart';
+import 'package:bookia/features/faq/presentation/page/faq_screen.dart';
 import 'package:bookia/features/home/data/models/best_seller_response/product.dart';
 import 'package:bookia/features/intro/splash_screen.dart';
 import 'package:bookia/features/intro/welcome_screen.dart';
 import 'package:bookia/features/main/main_app_screen.dart';
+import 'package:bookia/features/place_order/presentation/page/congrats.dart';
+import 'package:bookia/features/place_order/presentation/page/palce_order_screen.dart';
+import 'package:bookia/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:bookia/features/profile/presentation/pages/change_password_screen.dart';
+import 'package:bookia/features/profile/presentation/pages/edit_profile_screen.dart';
+import 'package:bookia/features/profile/presentation/pages/my_orders_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -60,6 +70,51 @@ class AppRouter {
         builder: (context, state) {
           return BookDetailsScreen(model: state.extra as Product);
         },
+      ),
+      GoRoute(
+        path: Routes.placeOrder,
+        builder: (context, state) {
+          return PlaceOrderScreen(total: state.extra as String);
+        },
+      ),
+      GoRoute(
+        path: Routes.orderSuccess,
+        builder: (context, state) => const OrderScreen(),
+      ),
+      GoRoute(
+        path: Routes.myOrders,
+        builder: (context, state) => BlocProvider(
+          create: (context) => ProfileCubit(),
+          child: const MyOrdersScreen(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.editProfile,
+        builder: (context, state) => BlocProvider(
+          create: (context) => ProfileCubit()..getProfile(),
+          child: const EditProfileScreen(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.changePassword,
+        builder: (context, state) => BlocProvider(
+          create: (context) => ProfileCubit(),
+          child: const ChangePasswordScreen(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.faq,
+        builder: (context, state) => BlocProvider(
+          create: (context) => FaqCubit(),
+          child: const FaqScreen(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.contactUs,
+        builder: (context, state) => BlocProvider(
+          create: (context) => ContactUsCubit(),
+          child: const ContactUsScreen(),
+        ),
       ),
     ],
   );

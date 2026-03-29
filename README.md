@@ -1,10 +1,114 @@
-# bookia
+# 📚 Bookia — Online Book Store App
 
-bookStore Application with flutter
+> A modern Flutter e-commerce experience crafted for seamless book discovery and purchasing 📖✨
 
-## About
+---
 
-bookia is a bookstore application
+## 🎯 App Preview
 
-## ScreenShots
-[splash screen](splash.png) ![welcome screen](welcome.png) ![login screen](login.png) [register screen](register.png) ![Forgot Password](Screenshot_1773065881.png) ![Failed Forgot Password](Screenshot_1773065906.png) ![OTP](Screenshot_1773066074.png) ![create new pass](Screenshot_1773066122.png) ![password changed](Screenshot_1773066133.png) ![home screen](Screenshot_1773635724.png)![book details](Screenshot_1773634776.png)![wishlist](Screenshot_1773940375.png)
+### 🧩 App Identity
+|                    App Icon                   |
+| :-------------------------------------------: |
+| <img src="screenshots/icon.png" width="220"/> |
+
+---
+
+## 🚀 User Journey
+
+### 👋 First Impression (Onboarding)
+
+|                  Welcome Screen                  |                  Splash Screen                  |
+| :----------------------------------------------: | :---------------------------------------------: |
+| <img src="screenshots/welcome.png" width="220"/> | <img src="screenshots/splash.png" width="220"/> |
+
+💡 *Smooth entry experience that introduces the app with clean visuals and fast loading.*
+
+---
+
+### 🔐 User Authentication 
+
+|                      Login                     |                      Register                     |               OTP Verification               |
+| :--------------------------------------------: | :-----------------------------------------------: | :------------------------------------------: |
+| <img src="screenshots/login.png" width="220"/> | <img src="screenshots/register.png" width="220"/> | <img src="screenshots/otp.png" width="220"/> |
+
+💡 *Secure and user-friendly authentication with OTP verification.*
+
+---
+### 🔑 Account Recovery
+
+|                 Forgot Password                 |                 Create New Password                 |                Password Changed               |
+| :---------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------: |
+| <img src="screenshots/forget.png" width="220"/> | <img src="screenshots/createpass.png" width="220"/> | <img src="screenshots/pass.png" width="220"/> |
+
+💡 *Simple recovery flow to ensure users never lose access.*
+
+---
+
+### 🏠 Explore content & Discover books
+
+|                  Home Screen                  |                      Search                     |
+| :-------------------------------------------: | :---------------------------------------------: |
+| <img src="screenshots/Home.png" width="220"/> | <img src="screenshots/search.png" width="220"/> |
+
+💡 *Browse books effortlessly with smart search and clean UI.*
+
+---
+
+### 📖 Book Details
+
+|                      Book Details                     |
+| :---------------------------------------------------: |
+| <img src="screenshots/book_details.png" width="220"/> |
+
+💡 *Detailed view with all the information users need before purchasing.*
+
+---
+
+### 🛒 Shopping Experience
+
+|                      Cart                     |                      Place Order                     |                   Order Success                  |
+| :-------------------------------------------: | :--------------------------------------------------: | :----------------------------------------------: |
+| <img src="screenshots/cart.png" width="220"/> | <img src="screenshots/place_order.png" width="220"/> | <img src="screenshots/success.png" width="220"/> |
+
+💡 *Smooth checkout experience from cart to order confirmation.*
+
+---
+
+### ❤️ User Profile & Personalization
+
+|                      Profile                     |                     Edit Profile                     |                     My Orders                     |                      Wishlist                     |                    Reset Password                    |
+| :----------------------------------------------: | :--------------------------------------------------: | :-----------------------------------------------: | :-----------------------------------------------: | :--------------------------------------------------: |
+| <img src="screenshots/profile.png" width="220"/> | <img src="screenshots/editprofile.png" width="220"/> | <img src="screenshots/myorders.png" width="220"/> | <img src="screenshots/wishlist.png" width="220"/> | <img src="screenshots/newpassword.png" width="220"/> |
+
+💡 *User can manage his data, show all orders , reset his password*
+
+---
+
+### ℹ️ Help & Support
+
+|                      FAQ                     |                     Contact Us                     |
+| :------------------------------------------: | :------------------------------------------------: |
+| <img src="screenshots/FAQ.png" width="220"/> | <img src="screenshots/contactus.png" width="220"/> |
+
+💡 *Support system to enhance user trust and experience.*
+
+---
+
+## 🛠 Technologies
+
+* **Flutter** — Cross-platform development
+* **Dart** — Programming language
+* **Bloc / Cubit** — State management
+* **Clean Architecture** — Scalable structure
+* **Dio** — API handling
+* **Shared Preferences** — Local storage
+---
+
+## 📂 Project Structure
+
+```
+lib/
+ ├── core/
+ ├── features/
+ └── main.dart
+```

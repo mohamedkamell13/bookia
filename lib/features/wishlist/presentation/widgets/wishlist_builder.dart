@@ -17,7 +17,10 @@ class WishlistBuilder extends StatelessWidget {
           var books = cubit.products;
           if (books.isEmpty) {
             return Center(
-              child: Text('No books in wishlist', style: TextStyles.body),
+              child: Text(
+                'There\'s No Items In The Wishlist',
+                style: TextStyles.body,
+              ),
             );
           }
           return GridView.builder(

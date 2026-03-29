@@ -1,9 +1,13 @@
 import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
+import 'package:bookia/features/cart/presentation/page/cart_screen.dart';
 import 'package:bookia/features/home/presentation/page/home_screen.dart';
+import 'package:bookia/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:bookia/features/profile/presentation/pages/profile_screen.dart';
 import 'package:bookia/features/wishlist/presentation/page/wishlist_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainAppScreen extends StatefulWidget {
   const MainAppScreen({super.key});
@@ -17,8 +21,8 @@ class _MainAppScreenState extends State<MainAppScreen> {
   List<Widget> screens = [
     HomeScreen(),
     WishlistScreen(),
-    Center(child: Text('Cart')),
-    Center(child: Text('profile')),
+    CartScreen(),
+    BlocProvider(create: (context) => ProfileCubit(), child: ProfileScreen()),
   ];
   @override
   Widget build(BuildContext context) {

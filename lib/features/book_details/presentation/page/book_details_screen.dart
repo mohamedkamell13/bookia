@@ -1,10 +1,8 @@
-import 'package:bookia/core/constants/app_images.dart';
-import 'package:bookia/core/functions/navigations.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
-import 'package:bookia/core/widgets/custom_svg_picture.dart';
-import 'package:bookia/core/widgets/main_button.dart';
-import 'package:bookia/features/book_details/presentation/widgets/wishlist_icon.dart';
+import 'package:bookia/core/widgets/custom_back_button.dart';
+import 'package:bookia/features/book_details/presentation/widgets/cart_action/cart_icon.dart';
+import 'package:bookia/features/book_details/presentation/widgets/wishlist_action/wishlist_icon.dart';
 import 'package:bookia/features/home/data/models/best_seller_response/product.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -16,13 +14,8 @@ class BookDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            pop(context);
-          },
-          icon: CustomSvgPicture(path: AppImages.back),
-        ),
-        actions: [WishListIcon(id: model.id ?? 0)],
+        leading: CustomBackButton(),
+        actions: [WishlistActionWidget(id: model.id ?? 0)],
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -66,12 +59,7 @@ class BookDetailsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('₹${model.price ?? ''}', style: TextStyles.title),
-            MainButton(
-              text: 'Add To Cart',
-              onPressed: () {},
-              minWidth: 212,
-              bgColor: AppColors.blackColor,
-            ),
+            CartActionWidget(id: model.id ?? 0),
           ],
         ),
       ),
