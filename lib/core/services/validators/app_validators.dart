@@ -1,38 +1,37 @@
 import 'package:bookia/core/functions/validators.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AppValidators {
   static String? username(String? input) {
     if (input == null || input.isEmpty) {
-      return 'Please enter your username';
+      return 'validUsername'.tr();
     }
     return null;
   }
 
   static String? password(String? input) {
     if (input == null || input.isEmpty) {
-      return 'Please enter your password';
+      return 'validPassword'.tr();
     } else if (input.length < 6) {
-      return 'Password must be at least 6 characters';
+      return 'validPasswordLength'.tr();
     }
     return null;
   }
 
   static String? email(String? input) {
     if (input == null || input.isEmpty) {
-      return 'Please enter your email';
-    } else if (!input.contains('@')) {
-      return 'Please enter a valid email';
-    } else if (!isValidEmail(input)) {
-      return 'Please enter a valid email';
+      return 'validEmail'.tr();
+    } else if (!input.contains('@') || !isValidEmail(input)) {
+      return 'validEmailFormat'.tr();
     }
     return null;
   }
 
   static String? phone(String? input) {
     if (input == null || input.isEmpty) {
-      return 'Please enter your phone number';
+      return 'validPhone'.tr();
     } else if (!isEgyptianNumber(input)) {
-      return 'Please enter a valid Egyptian phone number';
+      return 'validPhoneFormat'.tr();
     }
     return null;
   }

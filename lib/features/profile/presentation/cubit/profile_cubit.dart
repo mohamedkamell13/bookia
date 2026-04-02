@@ -10,32 +10,14 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileModel? profile;
   List<OrderModel> orders = [];
 
-  Future<void> getProfile() async {
+  Future<void> getProfile({bool forceRefresh = false}) async {
+    if (profile != null && !forceRefresh) return;
     emit(GetProfileLoadingState());
     try {
       profile = await ProfileRepo.getProfile();
       emit(GetProfileSuccessState());
     } catch (e) {
       emit(GetProfileErrorState(e.toString()));
-    }
-  }
-
-  Future<void> updateProfile({
-    required String name,
-    required String phone,
-    required String address,
-  }) async {
-    emit(UpdateProfileLoadingState());
-    try {
-      await ProfileRepo.updateProfile(
-        name: name,
-        phone: phone,
-        address: address,
-      );
-      await getProfile();
-      emit(UpdateProfileSuccessState());
-    } catch (e) {
-      emit(UpdateProfileErrorState(e.toString()));
     }
   }
 
@@ -65,5 +47,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     } catch (e) {
       emit(GetOrdersErrorState(e.toString()));
     }
+  }
+
+  void clearProfile() {
+    profile = null;
   }
 }

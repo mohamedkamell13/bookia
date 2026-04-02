@@ -13,5 +13,6 @@ abstract class AppImages {
   static const String bookmark = 'assets/icons/bookmark.svg';
   static const String home = 'assets/icons/home.svg';
   static const String search = 'assets/icons/search.svg';
+  static const String camera = 'assets/icons/camera.svg';
   static const String loading = 'assets/images/loading.json';
 }

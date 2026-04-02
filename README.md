@@ -93,6 +93,19 @@
 💡 *Support system to enhance user trust and experience.*
 
 ---
+## 🌐 Some Screens of Arabic Version
+
+|                  Home Screen                  |                      Search screen              |
+| :-------------------------------------------: | :---------------------------------------------: |
+| <img src="screenshots\arabic\home_arabic.png" width="220"/> | <img src="screenshots\arabic\search_arabic.png" width="220"/> |
+
+|                  details Screen                  |                      cart screen                    |
+| :-------------------------------------------: | :---------------------------------------------: |
+| <img src="screenshots\arabic\details_arabic.png" width="220"/> | <img src="screenshots\arabic\cart_arabic.png" width="220"/> |
+
+|                  wishlist Screen              |                      profile screen             |
+| :-------------------------------------------: | :---------------------------------------------: |
+| <img src="screenshots\arabic\wishlist_arabic.png" width="220"/> | <img src="screenshots\arabic\profile_arabic.png" width="220"/> |
 
 ## 🛠 Technologies
 

@@ -5,6 +5,7 @@ import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/auth/presentation/widgets/password_text_form_field.dart';
 import 'package:bookia/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:bookia/features/profile/presentation/cubit/profile_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -37,7 +38,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         if (state is ChangePasswordSuccessState) {
           showMyDialog(
             context,
-            'Password changed successfully',
+            'passwordChangedmsg'.tr(),
             type: DialogType.success,
           );
           Navigator.pop(context);
@@ -61,14 +62,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Gap(16),
-                  Text('New Password', style: TextStyles.headline),
+                  Text('newpassword'.tr(), style: TextStyles.headline),
                   const Gap(32),
                   PasswordTextFormField(
                     controller: _currentPasswordController,
-                    hintText: 'Current Password',
+                    hintText: 'currentPassword'.tr(),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter current password';
+                        return 'validCurrentPassword'.tr();
                       }
                       return null;
                     },
@@ -76,13 +77,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   const Gap(16),
                   PasswordTextFormField(
                     controller: _newPasswordController,
-                    hintText: 'New Password',
+                    hintText: 'newpassword'.tr(),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter new password';
+                        return 'validNewPassword'.tr();
                       }
                       if (value.length < 8) {
-                        return 'Password must be at least 8 characters';
+                        return 'validPasswordLength8'.tr();
                       }
                       return null;
                     },
@@ -90,13 +91,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   const Gap(16),
                   PasswordTextFormField(
                     controller: _confirmPasswordController,
-                    hintText: 'Confirm password',
+                    hintText: 'confirmNewPassword'.tr(),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please confirm your password';
+                        return 'validConfirmPassword'.tr();
                       }
                       if (value != _newPasswordController.text) {
-                        return 'Passwords do not match';
+                        return 'validPasswordMatch'.tr();
                       }
                       return null;
                     },
@@ -119,8 +120,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 }
                               },
                         text: state is ChangePasswordLoadingState
-                            ? 'Loading...'
-                            : 'Update Password',
+                            ? 'loading'.tr()
+                            : 'updatePassword'.tr(),
                       );
                     },
                   ),

@@ -1,5 +1,5 @@
 import 'package:bookia/core/functions/dialogs.dart';
-import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/navigations.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
@@ -8,6 +8,7 @@ import 'package:bookia/core/widgets/shimmer/list_shimmer.dart';
 import 'package:bookia/features/cart/presentation/cubit/cart_state.dart';
 import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:bookia/features/cart/presentation/widgets/cart_item_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -26,8 +27,8 @@ class CartBuilder extends StatelessWidget {
           var cubit = context.read<CartCubit>();
           pushTo(context, Routes.placeOrder, extra: cubit.total);
         } else if (state is CheckoutErrorState) {
-          Navigator.pop(context); // Close loading dialog
-          showMyDialog(context, 'Failed to checkout. Please try again.');
+          Navigator.pop(context);
+          showMyDialog(context, 'failedCheckout'.tr());
         }
       },
       buildWhen: (_, state) =>
@@ -38,7 +39,7 @@ class CartBuilder extends StatelessWidget {
         if (state is CartSuccessState) {
           var cubit = context.read<CartCubit>();
           if (cubit.products.isEmpty) {
-            return const Center(child: Text('No books in cart'));
+            return Center(child: Text('noBooksInCart'.tr()));
           }
           return Column(
             children: [
@@ -67,7 +68,7 @@ class CartBuilder extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Total:',
+                        'total'.tr(),
                         style: TextStyles.subtitle1.copyWith(
                           color: AppColors.greyColor,
                         ),
@@ -77,7 +78,7 @@ class CartBuilder extends StatelessWidget {
                   ),
                   Gap(20),
                   MainButton(
-                    text: 'Checkout',
+                    text: 'checkout'.tr(),
                     onPressed: () {
                       cubit.checkout();
                     },

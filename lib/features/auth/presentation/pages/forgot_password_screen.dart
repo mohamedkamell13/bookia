@@ -1,5 +1,5 @@
 import 'package:bookia/core/functions/dialogs.dart';
-import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/navigations.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/services/validators/app_validators.dart';
 import 'package:bookia/core/styles/colors.dart';
@@ -10,6 +10,7 @@ import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_app_bar.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_footer.dart';
 import 'package:bookia/features/auth/presentation/widgets/email_text_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -46,21 +47,21 @@ class ForgotPasswordScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Forgot Password', style: TextStyles.headline),
+                  Text('passwordForgot'.tr(), style: TextStyles.headline),
                   Gap(10),
                   Text(
-                    'Don\'t worry! It occurs. Please enter the email address linked with your account.',
+                    'editMsg'.tr(),
                     style: TextStyles.body.copyWith(color: AppColors.greyColor),
                   ),
                   Gap(30),
                   EmailTextFormField(
                     emailController: cubit.forgotPasswordController,
-                    hintText: 'Enter your email',
+                    hintText: 'Email'.tr(),
                     validator: AppValidators.email,
                   ),
                   Gap(38),
                   MainButton(
-                    text: 'Send Code',
+                    text: 'sendCode'.tr(),
                     onPressed: () {
                       cubit.forgotPassword();
                     },
@@ -71,8 +72,8 @@ class ForgotPasswordScreen extends StatelessWidget {
           },
         ),
         bottomNavigationBar: AuthFooter(
-          textSpan: 'Remember Password?',
-          textButton: "Login",
+          textSpan: 'alreadyHave'.tr(),
+          textButton: 'login'.tr(),
           onPressed: () {
             pushReplaceMent(context, Routes.login);
           },

@@ -10,7 +10,7 @@ abstract class DioProvider {
 
   static Future<Response> post({
     required String endPoint,
-    Map<String, dynamic>? data,
+    Object? data,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
   }) async {
@@ -24,7 +24,7 @@ abstract class DioProvider {
 
   static Future<Response> get({
     required String endPoint,
-    Map<String, dynamic>? data,
+    Object? data,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
   }) async {
@@ -38,7 +38,7 @@ abstract class DioProvider {
 
   static Future<Response> put({
     required String endPoint,
-    Map<String, dynamic>? data,
+    Object? data,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
   }) async {
@@ -52,7 +52,7 @@ abstract class DioProvider {
 
   static Future<Response> delete({
     required String endPoint,
-    Map<String, dynamic>? data,
+    Object? data,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
   }) async {

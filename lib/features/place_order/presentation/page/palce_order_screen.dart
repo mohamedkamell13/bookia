@@ -6,6 +6,7 @@ import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/place_order/presentation/cubit/place_order_cubit.dart';
 import 'package:bookia/features/place_order/presentation/cubit/place_order_state.dart';
 import 'package:bookia/features/place_order/presentation/widgets/gov_bottom_sheet.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -13,7 +14,6 @@ import 'package:go_router/go_router.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
   final String total;
-
   const PlaceOrderScreen({super.key, required this.total});
 
   @override
@@ -55,21 +55,21 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Place Your Order', style: TextStyles.headline),
+                  Text('placeOrder'.tr(), style: TextStyles.headline),
                   const Gap(10),
                   Text(
-                    'Don\'t worry! It occurs. Please enter the email address linked with your account.',
+                    'placeOrdermsg'.tr(),
                     style: TextStyles.body.copyWith(color: Colors.grey),
                   ),
                   const Gap(28),
                   CustomTextFormField(
                     controller: _fullNameController,
-                    hintText: 'Full Name',
+                    hintText: 'fullname'.tr(),
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your full name';
+                        return 'validFullName'.tr();
                       }
                       return null;
                     },
@@ -77,15 +77,15 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   const Gap(16),
                   CustomTextFormField(
                     controller: _emailController,
-                    hintText: 'Email',
+                    hintText: 'Email'.tr(),
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
+                        return 'validEmail'.tr();
                       }
                       if (!value.contains('@')) {
-                        return 'Please enter a valid email';
+                        return 'validEmailFormat'.tr();
                       }
                       return null;
                     },
@@ -93,12 +93,12 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   const Gap(16),
                   CustomTextFormField(
                     controller: _addressController,
-                    hintText: 'Address',
+                    hintText: 'address'.tr(),
                     keyboardType: TextInputType.streetAddress,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your address';
+                        return 'validAddress'.tr();
                       }
                       return null;
                     },
@@ -106,12 +106,12 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   const Gap(16),
                   CustomTextFormField(
                     controller: _phoneController,
-                    hintText: 'Phone',
+                    hintText: 'phone'.tr(),
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.done,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your phone number';
+                        return 'validPhone'.tr();
                       }
                       return null;
                     },
@@ -121,7 +121,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     builder: (context, state) {
                       return CustomTextFormField(
                         controller: _governorateController,
-                        hintText: 'Governorate',
+                        hintText: 'governrate'.tr(),
                         readOnly: true,
                         onTap: () {
                           if (state is GovernoratesSuccessState) {
@@ -140,7 +140,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please select a governorate';
+                            return 'validGovernorate'.tr();
                           }
                           return null;
                         },
@@ -151,7 +151,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   const Gap(32),
                   Row(
                     children: [
-                      Text('Total:', style: TextStyles.subtitle1),
+                      Text('total'.tr(), style: TextStyles.subtitle1),
                       const Spacer(),
                       Text('\$ ${widget.total}', style: TextStyles.subtitle1),
                     ],
@@ -160,16 +160,13 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   MainButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Handle order submission
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Order placed successfully!'),
-                          ),
+                          SnackBar(content: Text('orderPlaced'.tr())),
                         );
                         context.go(Routes.orderSuccess);
                       }
                     },
-                    text: 'Submit Order',
+                    text: 'submit'.tr(),
                   ),
                   const Gap(20),
                 ],

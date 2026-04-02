@@ -1,10 +1,12 @@
 import 'package:bookia/core/constants/app_images.dart';
-import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/navigations.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/core/widgets/custom_cached_image.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:bookia/core/widgets/main_button.dart';
+import 'package:bookia/core/widgets/shimmer/book_card_shimmer.dart';
 import 'package:bookia/features/home/data/models/best_seller_response/product.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -39,10 +41,12 @@ class BookCard extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  product.image ?? '',
+                child: CustomCachedImage(
+                  url: product.image ?? '',
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  errorWidget: const Icon(Icons.broken_image),
+                  progressIndicator: BookCardShimmer(),
                 ),
               ),
             ),

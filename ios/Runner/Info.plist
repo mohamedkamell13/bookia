@@ -16,6 +16,10 @@
 	<string>bookia</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need the permission to open gallery</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need the permission to use camera</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
@@ -28,6 +32,11 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>ar</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -1,5 +1,5 @@
 import 'package:bookia/core/functions/dialogs.dart';
-import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/navigations.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/services/validators/app_validators.dart';
 import 'package:bookia/core/styles/colors.dart';
@@ -9,6 +9,7 @@ import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_app_bar.dart';
 import 'package:bookia/features/auth/presentation/widgets/password_text_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -32,7 +33,7 @@ class NewPasswordScreen extends StatelessWidget {
               pushReplaceMent(context, Routes.passwordChanged);
             } else if (state is AuthErrorState) {
               pop(context);
-              showMyDialog(context, 'Failed To Reset Password');
+              showMyDialog(context, 'failedResetPassword'.tr());
             }
           },
           builder: (context, state) {
@@ -42,34 +43,34 @@ class NewPasswordScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Create new password', style: TextStyles.headline),
+                  Text('newpassword'.tr(), style: TextStyles.headline),
                   Gap(10),
                   Text(
-                    'Your new password must be unique from those previously used.',
+                    'newpasswordmsg'.tr(),
                     style: TextStyles.body.copyWith(color: AppColors.greyColor),
                   ),
                   Gap(32),
                   PasswordTextFormField(
                     controller: cubit.newPasswordController,
-                    hintText: 'New Password',
+                    hintText: 'newpassword'.tr(),
                     validator: AppValidators.password,
                   ),
                   Gap(15),
                   PasswordTextFormField(
                     controller: cubit.confirmNewPasswordController,
-                    hintText: 'Confirm New Password',
+                    hintText: 'confirmNewPassword'.tr(),
                     validator: (input) {
                       if (input == null || input.isEmpty) {
-                        return 'Please confirm your password';
+                        return 'validConfirmPassword'.tr();
                       } else if (input != cubit.newPasswordController.text) {
-                        return 'Passwords do not match';
+                        return 'validPasswordMatch'.tr();
                       }
                       return null;
                     },
                   ),
                   Gap(38),
                   MainButton(
-                    text: 'Reset Password',
+                    text: 'resetPassword2'.tr(),
                     onPressed: () {
                       cubit.resetPassword(verifyCode);
                     },

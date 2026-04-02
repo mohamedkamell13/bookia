@@ -19,7 +19,8 @@ import 'package:bookia/features/place_order/presentation/page/congrats.dart';
 import 'package:bookia/features/place_order/presentation/page/palce_order_screen.dart';
 import 'package:bookia/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:bookia/features/profile/presentation/pages/change_password_screen.dart';
-import 'package:bookia/features/profile/presentation/pages/edit_profile_screen.dart';
+import 'package:bookia/features/profile/presentation/pages/edit_profile/cubit/edit_profile_cubit.dart';
+import 'package:bookia/features/profile/presentation/pages/edit_profile/page/edit_profile_screen.dart';
 import 'package:bookia/features/profile/presentation/pages/my_orders_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -90,10 +91,17 @@ class AppRouter {
       ),
       GoRoute(
         path: Routes.editProfile,
-        builder: (context, state) => BlocProvider(
-          create: (context) => ProfileCubit()..getProfile(),
-          child: const EditProfileScreen(),
-        ),
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) {
+              // return EditProfileCubit()..loadInitData();
+              var cubit = EditProfileCubit();
+              cubit.loadInitData();
+              return cubit;
+            },
+            child: EditProfileScreen(),
+          );
+        },
       ),
       GoRoute(
         path: Routes.changePassword,

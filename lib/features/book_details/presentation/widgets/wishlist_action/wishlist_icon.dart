@@ -1,10 +1,11 @@
 import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/functions/dialogs.dart';
-import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/navigations.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:bookia/features/book_details/presentation/widgets/wishlist_action/cubit/wishlist_action_cubit.dart';
 import 'package:bookia/features/book_details/presentation/widgets/wishlist_action/cubit/wishlist_icon_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,7 +26,7 @@ class WishlistActionWidget extends StatelessWidget {
             showMyDialog(context, state.msg, type: DialogType.success);
           } else if (state is WishlistActionsErrorState) {
             pop(context);
-            showMyDialog(context, 'Something went wrong');
+            showMyDialog(context, 'failedWishlist'.tr());
           } else if (state is WishlistActionsState) {
             showLoadingDialog(context);
           }

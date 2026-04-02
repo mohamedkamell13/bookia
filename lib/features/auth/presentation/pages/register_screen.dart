@@ -1,5 +1,5 @@
 import 'package:bookia/core/functions/dialogs.dart';
-import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/navigations.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/services/validators/app_validators.dart';
 import 'package:bookia/core/styles/text_styles.dart';
@@ -11,6 +11,7 @@ import 'package:bookia/features/auth/presentation/widgets/auth_app_bar.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_footer.dart';
 import 'package:bookia/features/auth/presentation/widgets/email_text_form_field.dart';
 import 'package:bookia/features/auth/presentation/widgets/password_text_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -24,8 +25,8 @@ class RegisterScreen extends StatelessWidget {
       appBar: AuthAppBar(),
       body: _registerBody(context),
       bottomNavigationBar: AuthFooter(
-        textSpan: 'Already have an account?',
-        textButton: "Login Now",
+        textSpan: 'alreadyHave'.tr(),
+        textButton: 'loginNow'.tr(),
         onPressed: () {
           pushTo(context, Routes.login);
         },
@@ -43,7 +44,7 @@ class RegisterScreen extends StatelessWidget {
           pushToBase(context, Routes.login);
         } else if (state is AuthErrorState) {
           pop(context);
-          showMyDialog(context, 'Failed To Register');
+          showMyDialog(context, 'failedRegister'.tr());
         }
       },
       builder: (context, state) {
@@ -54,14 +55,11 @@ class RegisterScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Text(
-                    'Hello! Register to get started',
-                    style: TextStyles.headline,
-                  ),
+                  Text('registerWelcome'.tr(), style: TextStyles.headline),
                   Gap(32),
                   CustomTextFormField(
                     controller: cubit.userNameController,
-                    hintText: 'Username',
+                    hintText: 'userName'.tr(),
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     validator: AppValidators.username,
@@ -69,24 +67,24 @@ class RegisterScreen extends StatelessWidget {
                   Gap(11),
                   EmailTextFormField(
                     emailController: cubit.emailController,
-                    hintText: 'Email',
+                    hintText: 'Email'.tr(),
                     validator: AppValidators.email,
                   ),
                   Gap(13),
                   PasswordTextFormField(
                     controller: cubit.passwordController,
-                    hintText: 'Password',
+                    hintText: 'password'.tr(),
                     validator: AppValidators.password,
                   ),
                   Gap(12),
                   PasswordTextFormField(
                     controller: cubit.confirmPasswordController,
-                    hintText: 'Confirm Password',
+                    hintText: 'passwordConfirmation'.tr(),
                     validator: (input) {
                       if (input == null || input.isEmpty) {
-                        return 'Please confirm your password';
+                        return 'validConfirmPassword'.tr();
                       } else if (input != cubit.passwordController.text) {
-                        return 'Passwords do not match';
+                        return 'validPasswordMatch'.tr();
                       }
                       return null;
                     },
@@ -96,7 +94,7 @@ class RegisterScreen extends StatelessWidget {
                     CircularProgressIndicator(),
                   } else ...{
                     MainButton(
-                      text: 'Register',
+                      text: 'register'.tr(),
                       onPressed: () {
                         if (cubit.formKey.currentState!.validate()) {
                           cubit.register();

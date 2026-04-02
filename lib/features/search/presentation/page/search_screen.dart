@@ -3,6 +3,7 @@ import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/features/home/data/models/best_seller_response/product.dart';
 import 'package:bookia/features/search/presentation/cubit/search_cubit.dart';
 import 'package:bookia/features/search/presentation/cubit/search_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -55,7 +56,7 @@ class _SearchBodyState extends State<_SearchBody> {
                       controller: _searchController,
                       autofocus: true,
                       decoration: InputDecoration(
-                        hintText: 'Search Store',
+                        hintText: 'searshStore'.tr(),
                         prefixIcon: const Icon(
                           Icons.search,
                           color: Colors.grey,
@@ -80,10 +81,10 @@ class _SearchBodyState extends State<_SearchBody> {
                 child: BlocBuilder<SearchCubit, SearchState>(
                   builder: (context, state) {
                     if (state is SearchInitial) {
-                      return const Center(child: Text('Search for a book...'));
+                      return Center(child: Text('searchForBook'.tr()));
                     }
                     if (state is SearchEmptyState) {
-                      return const Center(child: Text('No books found'));
+                      return Center(child: Text('noBooksFound'.tr()));
                     }
                     if (state is SearchSuccessState) {
                       final results = context.read<SearchCubit>().searchResults;

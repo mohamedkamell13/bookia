@@ -5,6 +5,7 @@ import 'package:bookia/core/widgets/custom_text_form_field.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/features/contact_us/presentation/cubit/contact_us_cubit.dart';
 import 'package:bookia/features/contact_us/presentation/cubit/contact_us_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -37,11 +38,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     return BlocListener<ContactUsCubit, ContactUsState>(
       listener: (context, state) {
         if (state is ContactUsSuccessState) {
-          showMyDialog(
-            context,
-            'Message sent successfully',
-            type: DialogType.success,
-          );
+          showMyDialog(context, 'messageSent'.tr(), type: DialogType.success);
           Navigator.pop(context);
         }
         if (state is ContactUsErrorState) {
@@ -62,16 +59,16 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Contact Us', style: TextStyles.headline),
+                  Text('contactUs'.tr(), style: TextStyles.headline),
                   const Gap(24),
                   CustomTextFormField(
                     controller: _nameController,
-                    hintText: 'Name',
+                    hintText: 'name'.tr(),
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
+                        return 'validName'.tr();
                       }
                       return null;
                     },
@@ -79,15 +76,15 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   const Gap(16),
                   CustomTextFormField(
                     controller: _emailController,
-                    hintText: 'Email',
+                    hintText: 'Email'.tr(),
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
+                        return 'validEmail'.tr();
                       }
                       if (!value.contains('@')) {
-                        return 'Please enter a valid email';
+                        return 'validEmailFormat'.tr();
                       }
                       return null;
                     },
@@ -95,12 +92,12 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   const Gap(16),
                   CustomTextFormField(
                     controller: _subjectController,
-                    hintText: 'Subject',
+                    hintText: 'subject'.tr(),
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter a subject';
+                        return 'validSubject'.tr();
                       }
                       return null;
                     },
@@ -110,10 +107,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     controller: _messageController,
                     maxLines: 5,
                     textInputAction: TextInputAction.done,
-                    decoration: const InputDecoration(hintText: 'Message'),
+                    decoration: InputDecoration(hintText: 'message'.tr()),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your message';
+                        return 'validMessage'.tr();
                       }
                       return null;
                     },
@@ -135,8 +132,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                 }
                               },
                         text: state is ContactUsLoadingState
-                            ? 'Loading...'
-                            : 'Send Message',
+                            ? 'loading'.tr()
+                            : 'sendMessage'.tr(),
                       );
                     },
                   ),

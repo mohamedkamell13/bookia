@@ -2,7 +2,7 @@ import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:bookia/features/profile/presentation/cubit/profile_state.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,15 +39,15 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('My Orders', style: TextStyles.headline),
+                Text('myOrders'.tr(), style: TextStyles.headline),
                 const SizedBox(height: 24),
                 cubit.orders.isEmpty
-                    ? const Center(child: Text('No orders yet'))
+                    ? Center(child: Text('noOrders'.tr()))
                     : ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: cubit.orders.length,
-                        separatorBuilder: (_, _) => const SizedBox(height: 12),
+                        separatorBuilder: (_, __) => const SizedBox(height: 12),
                         itemBuilder: (context, index) {
                           final order = cubit.orders[index];
                           return Column(
@@ -57,7 +57,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Order No${order.id}',
+                                    '${'orderNo'.tr()} ${order.id}',
                                     style: TextStyles.subtitle1,
                                   ),
                                   Text(
@@ -72,7 +72,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: Text(
-                                  'Total Amount: \$${order.total}',
+                                  '${'totalAmount'.tr()}: \$${order.total}',
                                   style: TextStyles.subtitle1,
                                 ),
                               ),

@@ -2,8 +2,11 @@ import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/functions/dialogs.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/core/widgets/custom_cached_image.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
+import 'package:bookia/core/widgets/shimmer/list_shimmer.dart';
 import 'package:bookia/features/cart/data/models/cart_response/cart_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -28,16 +31,16 @@ class CartItemWidget extends StatelessWidget {
         color: AppColors.accentColor,
         borderRadius: BorderRadius.circular(20),
       ),
-
       child: Row(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              item.itemProductImage ?? '',
+            child: CustomCachedImage(
+              url: item.itemProductImage ?? '',
               width: 100,
               height: 118,
-              fit: BoxFit.cover,
+              errorWidget: const Icon(Icons.broken_image),
+              progressIndicator: ListShimmer(),
             ),
           ),
           Gap(20),
@@ -92,7 +95,7 @@ class CartItemWidget extends StatelessWidget {
                           if (updatedCount <= (item.itemProductStock ?? 0)) {
                             onUpdate!(updatedCount);
                           } else {
-                            showMyDialog(context, 'Can\'t Add More Than Stock');
+                            showMyDialog(context, 'cantAddMoreThanStock'.tr());
                           }
                         },
                         icon: Icon(Icons.add, size: 20),
@@ -113,7 +116,7 @@ class CartItemWidget extends StatelessWidget {
                           if (quantity > 1) {
                             onUpdate!(updatedCount);
                           } else {
-                            showMyDialog(context, 'can\'t Remove Less Than 1');
+                            showMyDialog(context, 'cantRemoveLessThanOne'.tr());
                           }
                         },
                         icon: Icon(Icons.remove, size: 20),

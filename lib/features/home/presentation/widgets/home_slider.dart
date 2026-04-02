@@ -1,4 +1,5 @@
 import 'package:bookia/core/styles/colors.dart';
+import 'package:bookia/core/widgets/custom_cached_image.dart';
 import 'package:bookia/core/widgets/shimmer/slider_shimmer.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/features/home/presentation/cubit/home_state.dart';
@@ -31,10 +32,14 @@ class _HomeSliderState extends State<HomeSlider> {
                     (BuildContext context, int itemIndex, int pageViewIndex) =>
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            sliders[itemIndex].image ?? '',
+                          child: CustomCachedImage(
+                            url: sliders[itemIndex].image ?? '',
                             width: double.infinity,
-                            fit: BoxFit.cover,
+                            height: 150,
+                            errorWidget: const Icon(Icons.broken_image),
+                            progressIndicator: SliderShimmer(
+                              yourActiveIndex: 0,
+                            ),
                           ),
                         ),
                 options: CarouselOptions(

@@ -6,6 +6,7 @@ import 'package:bookia/features/auth/presentation/widgets/email_text_form_field.
 import 'package:bookia/features/auth/presentation/widgets/forgot_password_button.dart';
 import 'package:bookia/features/auth/presentation/widgets/login_social_buttons.dart';
 import 'package:bookia/features/auth/presentation/widgets/password_text_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -21,27 +22,24 @@ class LoginForm extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Text(
-              'Welcome back! Glad to see you, Again!',
-              style: TextStyles.headline,
-            ),
+            Text('loginWelcome'.tr(), style: TextStyles.headline),
             Gap(32),
             EmailTextFormField(
               emailController: cubit.emailController,
-              hintText: 'Enter your email',
+              hintText: 'Email'.tr(),
               validator: AppValidators.email,
             ),
             Gap(15),
             PasswordTextFormField(
               controller: cubit.passwordController,
-              hintText: 'Enter your password',
+              hintText: 'password'.tr(),
               validator: AppValidators.password,
             ),
             Gap(13),
             ForgotPasswordButton(),
             Gap(30),
             MainButton(
-              text: 'Login',
+              text: 'login'.tr(),
               onPressed: () {
                 if (cubit.formKey.currentState!.validate()) {
                   cubit.login();
