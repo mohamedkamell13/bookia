@@ -9,51 +9,45 @@ class CartCubit extends Cubit<CartState> {
 
   List<CartItem> products = [];
   String total = '';
+
   Future<void> getCart() async {
     emit(CartLoadingState());
-    var data = await CartRepo.getCart();
-    if (data != null) {
-      products = data.data?.cartItems ?? [];
-      total = data.data?.total ?? '';
+    var response = await CartRepo.getCart();
+    response.fold((l) => emit(CartErrorState()), (r) {
+      products = r.cartItems ?? [];
+      total = r.total?.toString() ?? '';
       SharedPref.cacheCartIds(products);
       emit(CartSuccessState());
-    } else {
-      emit(CartErrorState());
-    }
+    });
   }
 
   Future<void> removeFromCart(int cartItemId) async {
     emit(CartLoadingState());
-    var data = await CartRepo.removeFromCart(cartItemId);
-    if (data != null) {
-      products = data.data?.cartItems ?? [];
-      total = data.data?.total?.toString() ?? '';
+    var response = await CartRepo.removeFromCart(cartItemId);
+    response.fold((l) => emit(CartErrorState()), (r) {
+      products = r.cartItems ?? [];
+      total = r.total?.toString() ?? '';
       SharedPref.cacheCartIds(products);
       emit(CartSuccessState());
-    } else {
-      emit(CartErrorState());
-    }
+    });
   }
 
   Future<void> updateCart(int cartItemId, int quantity) async {
-    var data = await CartRepo.updateCart(cartItemId, quantity);
-    if (data != null) {
-      products = data.data?.cartItems ?? [];
-      total = data.data?.total ?? '';
+    var response = await CartRepo.updateCart(cartItemId, quantity);
+    response.fold((l) => emit(CartErrorState()), (r) {
+      products = r.cartItems ?? [];
+      total = r.total?.toString() ?? '';
       SharedPref.cacheCartIds(products);
       emit(CartSuccessState());
-    } else {
-      emit(CartErrorState());
-    }
+    });
   }
 
   Future<void> checkout() async {
     emit(CheckoutLoadingState());
-    var success = await CartRepo.checkout();
-    if (success) {
-      emit(CheckoutSuccessState());
-    } else {
-      emit(CheckoutErrorState());
-    }
+    var response = await CartRepo.checkout();
+    response.fold(
+      (l) => emit(CheckoutErrorState()),
+      (r) => emit(CheckoutSuccessState()),
+    );
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bookia/core/services/local/shared_pref.dart';
 import 'package:bookia/features/profile/data/models/update_profile_params.dart';
 import 'package:bookia/features/profile/data/repo/profile_repo.dart';
@@ -32,12 +31,10 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       address: addressController.text,
       image: image,
     );
-    var data = await ProfileRepo.editProfile(params);
-
-    if (data != null) {
-      emit(EditProfileSuccess());
-    } else {
-      emit(EditProfileError());
-    }
+    var response = await ProfileRepo.editProfile(params);
+    response.fold(
+      (l) => emit(EditProfileError()),
+      (r) => emit(EditProfileSuccess()),
+    );
   }
 }

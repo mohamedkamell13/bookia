@@ -1,91 +1,70 @@
-import 'dart:developer';
 import 'package:bookia/core/services/dio/apis.dart';
 import 'package:bookia/core/services/dio/dio_provider.dart';
+import 'package:bookia/core/services/dio/failure.dart';
 import 'package:bookia/core/services/local/shared_pref.dart';
-import 'package:bookia/features/cart/data/models/cart_response/cart_response.dart';
+import 'package:bookia/features/cart/data/models/cart_response/data.dart';
+import 'package:dartz/dartz.dart';
 
 class CartRepo {
-  static Future<CartResponse?> getCart() async {
-    try {
-      var response = await DioProvider.get(
-        endPoint: Apis.cart,
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-      );
-      if (response.statusCode == 200) {
-        return CartResponse.fromJson(response.data);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
+  static Map<String, dynamic> get _authHeader => {
+    "Authorization": "Bearer ${SharedPref.getToken()}",
+  };
+
+  static Future<Either<Failure, Data>> getCart() async {
+    var response = await DioProvider.getApi(
+      endPoint: Apis.cart,
+      headers: _authHeader,
+    );
+    return response.fold(
+      (l) => left(l),
+      (right) => Right(Data.fromJson(right)),
+    );
   }
 
-  static Future<CartResponse?> addToCart(int productId) async {
-    try {
-      var response = await DioProvider.post(
-        endPoint: Apis.addToCart,
-        data: {"product_id": productId},
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-      );
-      if (response.statusCode == 201) {
-        return CartResponse.fromJson(response.data);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
+  static Future<Either<Failure, Data>> addToCart(int productId) async {
+    var response = await DioProvider.postApi(
+      endPoint: Apis.addToCart,
+      data: {"product_id": productId},
+      headers: _authHeader,
+    );
+    return response.fold(
+      (l) => left(l),
+      (right) => Right(Data.fromJson(right)),
+    );
   }
 
-  static Future<CartResponse?> removeFromCart(int cartItemId) async {
-    try {
-      var response = await DioProvider.post(
-        endPoint: Apis.removeFromCart,
-        data: {"cart_item_id": cartItemId},
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-      );
-      if (response.statusCode == 200) {
-        return CartResponse.fromJson(response.data);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
+  static Future<Either<Failure, Data>> removeFromCart(int cartItemId) async {
+    var response = await DioProvider.postApi(
+      endPoint: Apis.removeFromCart,
+      data: {"cart_item_id": cartItemId},
+      headers: _authHeader,
+    );
+    return response.fold(
+      (l) => left(l),
+      (right) => Right(Data.fromJson(right)),
+    );
   }
 
-  static Future<CartResponse?> updateCart(int cartItemId, int quantity) async {
-    try {
-      var response = await DioProvider.post(
-        endPoint: Apis.updateCart,
-        data: {"cart_item_id": cartItemId, "quantity": quantity},
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-      );
-      if (response.statusCode == 201) {
-        return CartResponse.fromJson(response.data);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
+  static Future<Either<Failure, Data>> updateCart(
+    int cartItemId,
+    int quantity,
+  ) async {
+    var response = await DioProvider.postApi(
+      endPoint: Apis.updateCart,
+      data: {"cart_item_id": cartItemId, "quantity": quantity},
+      headers: _authHeader,
+    );
+    return response.fold(
+      (l) => left(l),
+      (right) => Right(Data.fromJson(right)),
+    );
   }
 
-  static Future<bool> checkout() async {
-    try {
-      var response = await DioProvider.get(
-        endPoint: Apis.checkout,
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-      );
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      log(e.toString());
-      return false;
-    }
+  static Future<Either<Failure, bool>> checkout() async {
+    var response = await DioProvider.getApi(
+      endPoint: Apis.checkout,
+      headers: _authHeader,
+    );
+    return response.fold((l) => left(l), (right) => const Right(true));
   }
 }

@@ -9,26 +9,20 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
 
   Future<void> addToWishlist(int productId) async {
     emit(WishlistActionsState());
-    var data = await WishlistRepo.addToWishlist(productId);
-    if (data != null) {
-      var products = data.data?.products ?? [];
-      SharedPref.cacheWishlistIds(products);
+    var response = await WishlistRepo.addToWishlist(productId);
+    response.fold((l) => emit(WishlistActionsErrorState()), (r) {
+      SharedPref.cacheWishlistIds(r.products ?? []);
       emit(WishlistActionsSuccessState(msg: 'addedToWishlist'.tr()));
-    } else {
-      emit(WishlistActionsErrorState());
-    }
+    });
   }
 
   Future<void> removeFromWishlist(int productId) async {
     emit(WishlistActionsState());
-    var data = await WishlistRepo.removeFromWishlist(productId);
-    if (data != null) {
-      var products = data.data?.products ?? [];
-      SharedPref.cacheWishlistIds(products);
+    var response = await WishlistRepo.removeFromWishlist(productId);
+    response.fold((l) => emit(WishlistActionsErrorState()), (r) {
+      SharedPref.cacheWishlistIds(r.products ?? []);
       emit(WishlistActionsSuccessState(msg: 'removedFromWishlist'.tr()));
-    } else {
-      emit(WishlistActionsErrorState());
-    }
+    });
   }
 
   bool isProductInWishlist(int productId) {

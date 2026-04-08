@@ -1,21 +1,17 @@
-import 'dart:developer';
-
 import 'package:bookia/core/services/dio/apis.dart';
 import 'package:bookia/core/services/dio/dio_provider.dart';
-import 'package:bookia/features/place_order/data/models/governrate_response.dart';
+import 'package:bookia/core/services/dio/failure.dart';
+import 'package:bookia/features/place_order/data/models/governrate.dart';
+import 'package:dartz/dartz.dart';
 
 class PlaceOrderRepo {
-  static Future<GovernoratesResponse?> getGovernorates() async {
-    try {
-      var response = await DioProvider.get(endPoint: Apis.governorates);
-      if (response.statusCode == 200) {
-        return GovernoratesResponse.fromJson(response.data);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      log(e.toString());
-      return null;
-    }
+  static Future<Either<Failure, List<Governorate>>> getGovernorates() async {
+    var response = await DioProvider.getApi(endPoint: Apis.governorates);
+    return response.fold((l) => left(l), (right) {
+      var list = (right as List<dynamic>)
+          .map((e) => Governorate.fromJson(e as Map<String, dynamic>))
+          .toList();
+      return Right(list);
+    });
   }
 }

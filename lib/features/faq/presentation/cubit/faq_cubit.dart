@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bookia/features/faq/data/models/faq_models.dart';
 import 'package:bookia/features/faq/data/repo/faq_repo.dart';
 import 'package:bookia/features/faq/presentation/cubit/faq_state.dart';
@@ -11,13 +10,10 @@ class FaqCubit extends Cubit<FaqState> {
 
   Future<void> getFaqs() async {
     emit(FaqLoadingState());
-    try {
-      faqs = await FaqRepo.getFaqs();
-      log('faqs: ${faqs.length}');
+    var response = await FaqRepo.getFaqs();
+    response.fold((l) => emit(FaqErrorState(l.message)), (r) {
+      faqs = r;
       emit(FaqSuccessState());
-    } catch (e) {
-      log('error: $e');
-      emit(FaqErrorState(e.toString()));
-    }
+    });
   }
 }

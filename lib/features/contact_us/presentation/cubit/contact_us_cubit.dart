@@ -12,16 +12,15 @@ class ContactUsCubit extends Cubit<ContactUsState> {
     required String message,
   }) async {
     emit(ContactUsLoadingState());
-    try {
-      await ContactUsRepo.sendMessage(
-        name: name,
-        email: email,
-        subject: subject,
-        message: message,
-      );
-      emit(ContactUsSuccessState());
-    } catch (e) {
-      emit(ContactUsErrorState(e.toString()));
-    }
+    var response = await ContactUsRepo.sendMessage(
+      name: name,
+      email: email,
+      subject: subject,
+      message: message,
+    );
+    response.fold(
+      (l) => emit(ContactUsErrorState(l.message)),
+      (r) => emit(ContactUsSuccessState()),
+    );
   }
 }

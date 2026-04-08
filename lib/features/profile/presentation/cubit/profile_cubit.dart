@@ -13,12 +13,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> getProfile({bool forceRefresh = false}) async {
     if (profile != null && !forceRefresh) return;
     emit(GetProfileLoadingState());
-    try {
-      profile = await ProfileRepo.getProfile();
+    var response = await ProfileRepo.getProfile();
+    response.fold((l) => emit(GetProfileErrorState(l.message)), (r) {
+      profile = r;
       emit(GetProfileSuccessState());
-    } catch (e) {
-      emit(GetProfileErrorState(e.toString()));
-    }
+    });
   }
 
   Future<void> changePassword({
@@ -27,26 +26,24 @@ class ProfileCubit extends Cubit<ProfileState> {
     required String confirmPassword,
   }) async {
     emit(ChangePasswordLoadingState());
-    try {
-      await ProfileRepo.changePassword(
-        currentPassword: currentPassword,
-        newPassword: newPassword,
-        confirmPassword: confirmPassword,
-      );
-      emit(ChangePasswordSuccessState());
-    } catch (e) {
-      emit(ChangePasswordErrorState(e.toString()));
-    }
+    var response = await ProfileRepo.changePassword(
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      confirmPassword: confirmPassword,
+    );
+    response.fold(
+      (l) => emit(ChangePasswordErrorState(l.message)),
+      (r) => emit(ChangePasswordSuccessState()),
+    );
   }
 
   Future<void> getOrders() async {
     emit(GetOrdersLoadingState());
-    try {
-      orders = await ProfileRepo.getOrders();
+    var response = await ProfileRepo.getOrders();
+    response.fold((l) => emit(GetOrdersErrorState(l.message)), (r) {
+      orders = r;
       emit(GetOrdersSuccessState());
-    } catch (e) {
-      emit(GetOrdersErrorState(e.toString()));
-    }
+    });
   }
 
   void clearProfile() {

@@ -19,6 +19,7 @@ class AuthCubit extends Cubit<AuthState> {
   final confirmNewPasswordController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+
   Future<void> login() async {
     emit(AuthLoadingState());
     var response = await AuthRepo.login(
@@ -27,11 +28,10 @@ class AuthCubit extends Cubit<AuthState> {
         password: passwordController.text,
       ),
     );
-    if (response != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(messege: 'Failed To Register'));
-    }
+    response.fold(
+      (l) => emit(AuthErrorState(messege: l.message)),
+      (r) => emit(AuthSuccessState()),
+    );
   }
 
   Future<void> register() async {
@@ -44,11 +44,10 @@ class AuthCubit extends Cubit<AuthState> {
         name: userNameController.text,
       ),
     );
-    if (response != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(messege: 'Failed To Register'));
-    }
+    response.fold(
+      (l) => emit(AuthErrorState(messege: l.message)),
+      (r) => emit(AuthSuccessState()),
+    );
   }
 
   Future<void> forgotPassword() async {
@@ -56,26 +55,24 @@ class AuthCubit extends Cubit<AuthState> {
     var response = await AuthRepo.forgotPassword(
       ForgotPasswordParams(email: forgotPasswordController.text),
     );
-    if (response) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(messege: 'Failed'));
-    }
+    response.fold(
+      (l) => emit(AuthErrorState(messege: l.message)),
+      (r) => emit(AuthSuccessState()),
+    );
   }
 
   Future<void> checkForgetPassword({required String email}) async {
     emit(AuthLoadingState());
     var response = await AuthRepo.checkForgetPassword(
       VerifyCodeParams(
-        email: forgotPasswordController.text,
+        email: email,
         verifyCode: int.tryParse(otpController.text),
       ),
     );
-    if (response) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(messege: 'Invalid Code'));
-    }
+    response.fold(
+      (l) => emit(AuthErrorState(messege: l.message)),
+      (r) => emit(AuthSuccessState()),
+    );
   }
 
   Future<void> resetPassword(int verifyCode) async {
@@ -87,10 +84,9 @@ class AuthCubit extends Cubit<AuthState> {
         newPasswordConfirmation: confirmNewPasswordController.text,
       ),
     );
-    if (response) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(messege: 'Failed To Reset Password'));
-    }
+    response.fold(
+      (l) => emit(AuthErrorState(messege: l.message)),
+      (r) => emit(AuthSuccessState()),
+    );
   }
 }
