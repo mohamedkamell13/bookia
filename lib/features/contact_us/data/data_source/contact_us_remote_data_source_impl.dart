@@ -1,11 +1,11 @@
 import 'package:bookia/core/services/dio/apis.dart';
 import 'package:bookia/core/services/dio/dio_provider.dart';
-import 'package:bookia/core/services/dio/failure.dart';
 import 'package:bookia/core/services/local/shared_pref.dart';
-import 'package:dartz/dartz.dart';
+import 'package:bookia/features/contact_us/data/data_source/contact_us_remote_data_source.dart';
 
-class ContactUsRepo {
-  static Future<Either<Failure, bool>> sendMessage({
+class ContactUsRemoteDataSourceImpl implements ContactUsRemoteDataSource {
+  @override
+  Future<bool> sendMessage({
     required String name,
     required String email,
     required String subject,
@@ -21,6 +21,6 @@ class ContactUsRepo {
         'message': message,
       },
     );
-    return response.fold((l) => left(l), (right) => const Right(true));
+    return response.fold((l) => throw l, (right) => true);
   }
 }

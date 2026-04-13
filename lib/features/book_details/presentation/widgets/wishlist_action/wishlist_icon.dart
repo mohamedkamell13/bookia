@@ -1,4 +1,5 @@
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/functions/dialogs.dart';
 import 'package:bookia/core/routes/navigations.dart';
 import 'package:bookia/core/styles/colors.dart';
@@ -18,7 +19,7 @@ class WishlistActionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WishlistActionCubit(),
+      create: (context) => sl<WishlistActionCubit>(),
       child: BlocConsumer<WishlistActionCubit, WishlistActionState>(
         listener: (context, state) {
           if (state is WishlistActionsSuccessState) {
@@ -32,16 +33,18 @@ class WishlistActionWidget extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          var cubit = context.read<WishlistActionCubit>();
+          var cubit = context.watch<WishlistActionCubit>();
+          bool isInWishlist = cubit.isProductInWishlist(id);
+
           return IconButton(
             onPressed: () {
-              if (cubit.isProductInWishlist(id)) {
+              if (isInWishlist) {
                 cubit.removeFromWishlist(id);
               } else {
-                context.read<WishlistActionCubit>().addToWishlist(id);
+                cubit.addToWishlist(id);
               }
             },
-            icon: cubit.isProductInWishlist(id)
+            icon: isInWishlist
                 ? CustomSvgPicture(
                     path: AppImages.bookmark,
                     color: AppColors.primaryColor,

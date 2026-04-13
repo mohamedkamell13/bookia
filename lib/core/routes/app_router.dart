@@ -1,3 +1,4 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/pages/forgot_password_screen.dart';
@@ -36,30 +37,37 @@ class AppRouter {
       GoRoute(
         path: Routes.login,
         builder: (context, state) => BlocProvider(
-          create: (context) => AuthCubit(),
+          create: (context) => sl<AuthCubit>(),
           child: LoginScreen(),
         ),
       ),
       GoRoute(
         path: Routes.register,
         builder: (context, state) => BlocProvider(
-          create: (context) => AuthCubit(),
+          create: (context) => sl<AuthCubit>(),
           child: RegisterScreen(),
         ),
       ),
       GoRoute(
         path: Routes.forgotPassword,
-        builder: (context, state) => ForgotPasswordScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<AuthCubit>(),
+          child: ForgotPasswordScreen(),
+        ),
       ),
       GoRoute(
         path: Routes.otpVerification,
-        builder: (context, state) =>
-            OtpVerficationScreen(email: state.extra as String),
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<AuthCubit>(),
+          child: OtpVerficationScreen(email: state.extra as String),
+        ),
       ),
       GoRoute(
         path: Routes.newPassword,
-        builder: (context, state) =>
-            NewPasswordScreen(verifyCode: state.extra as int),
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<AuthCubit>(),
+          child: NewPasswordScreen(verifyCode: state.extra as int),
+        ),
       ),
       GoRoute(
         path: Routes.passwordChanged,
@@ -68,15 +76,13 @@ class AppRouter {
       GoRoute(path: Routes.main, builder: (context, state) => MainAppScreen()),
       GoRoute(
         path: Routes.bookDetails,
-        builder: (context, state) {
-          return BookDetailsScreen(model: state.extra as Product);
-        },
+        builder: (context, state) =>
+            BookDetailsScreen(model: state.extra as Product),
       ),
       GoRoute(
         path: Routes.placeOrder,
-        builder: (context, state) {
-          return PlaceOrderScreen(total: state.extra as String);
-        },
+        builder: (context, state) =>
+            PlaceOrderScreen(total: state.extra as String),
       ),
       GoRoute(
         path: Routes.orderSuccess,
@@ -85,42 +91,35 @@ class AppRouter {
       GoRoute(
         path: Routes.myOrders,
         builder: (context, state) => BlocProvider(
-          create: (context) => ProfileCubit(),
+          create: (context) => sl<ProfileCubit>(),
           child: const MyOrdersScreen(),
         ),
       ),
       GoRoute(
         path: Routes.editProfile,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) {
-              // return EditProfileCubit()..loadInitData();
-              var cubit = EditProfileCubit();
-              cubit.loadInitData();
-              return cubit;
-            },
-            child: EditProfileScreen(),
-          );
-        },
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<EditProfileCubit>()..loadInitData(),
+          child: EditProfileScreen(),
+        ),
       ),
       GoRoute(
         path: Routes.changePassword,
         builder: (context, state) => BlocProvider(
-          create: (context) => ProfileCubit(),
+          create: (context) => sl<ProfileCubit>(),
           child: const ChangePasswordScreen(),
         ),
       ),
       GoRoute(
         path: Routes.faq,
         builder: (context, state) => BlocProvider(
-          create: (context) => FaqCubit(),
+          create: (context) => sl<FaqCubit>(),
           child: const FaqScreen(),
         ),
       ),
       GoRoute(
         path: Routes.contactUs,
         builder: (context, state) => BlocProvider(
-          create: (context) => ContactUsCubit(),
+          create: (context) => sl<ContactUsCubit>(),
           child: const ContactUsScreen(),
         ),
       ),

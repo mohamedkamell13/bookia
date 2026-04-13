@@ -1,4 +1,5 @@
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:bookia/features/cart/presentation/page/cart_screen.dart';
@@ -22,7 +23,10 @@ class _MainAppScreenState extends State<MainAppScreen> {
     HomeScreen(),
     WishlistScreen(),
     CartScreen(),
-    BlocProvider(create: (context) => ProfileCubit(), child: ProfileScreen()),
+    BlocProvider(
+      create: (context) => sl<ProfileCubit>(),
+      child: ProfileScreen(),
+    ),
   ];
   @override
   Widget build(BuildContext context) {

@@ -20,64 +20,61 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: Scaffold(
-        appBar: AuthAppBar(),
-        body: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is AuthLoadingState) {
-              showLoadingDialog(context);
-            } else if (state is AuthSuccessState) {
-              pop(context);
-              pushTo(
-                context,
-                Routes.otpVerification,
-                extra: context.read<AuthCubit>().forgotPasswordController.text,
-              );
-            } else if (state is AuthErrorState) {
-              pop(context);
-              showMyDialog(context, 'Failed To Send Code');
-            }
-          },
-          builder: (context, state) {
-            var cubit = context.read<AuthCubit>();
-            return Padding(
-              padding: EdgeInsets.all(22),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('passwordForgot'.tr(), style: TextStyles.headline),
-                  Gap(10),
-                  Text(
-                    'editMsg'.tr(),
-                    style: TextStyles.body.copyWith(color: AppColors.greyColor),
-                  ),
-                  Gap(30),
-                  EmailTextFormField(
-                    emailController: cubit.forgotPasswordController,
-                    hintText: 'Email'.tr(),
-                    validator: AppValidators.email,
-                  ),
-                  Gap(38),
-                  MainButton(
-                    text: 'sendCode'.tr(),
-                    onPressed: () {
-                      cubit.forgotPassword();
-                    },
-                  ),
-                ],
-              ),
+    return Scaffold(
+      appBar: AuthAppBar(),
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthLoadingState) {
+            showLoadingDialog(context);
+          } else if (state is AuthSuccessState) {
+            pop(context);
+            pushTo(
+              context,
+              Routes.otpVerification,
+              extra: context.read<AuthCubit>().forgotPasswordController.text,
             );
-          },
-        ),
-        bottomNavigationBar: AuthFooter(
-          textSpan: 'alreadyHave'.tr(),
-          textButton: 'login'.tr(),
-          onPressed: () {
-            pushReplaceMent(context, Routes.login);
-          },
-        ),
+          } else if (state is AuthErrorState) {
+            pop(context);
+            showMyDialog(context, 'Failed To Send Code');
+          }
+        },
+        builder: (context, state) {
+          var cubit = context.read<AuthCubit>();
+          return Padding(
+            padding: EdgeInsets.all(22),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('passwordForgot'.tr(), style: TextStyles.headline),
+                Gap(10),
+                Text(
+                  'editMsg'.tr(),
+                  style: TextStyles.body.copyWith(color: AppColors.greyColor),
+                ),
+                Gap(30),
+                EmailTextFormField(
+                  emailController: cubit.forgotPasswordController,
+                  hintText: 'Email'.tr(),
+                  validator: AppValidators.email,
+                ),
+                Gap(38),
+                MainButton(
+                  text: 'sendCode'.tr(),
+                  onPressed: () {
+                    cubit.forgotPassword();
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+      bottomNavigationBar: AuthFooter(
+        textSpan: 'alreadyHave'.tr(),
+        textButton: 'login'.tr(),
+        onPressed: () {
+          pushReplaceMent(context, Routes.login);
+        },
       ),
     );
   }

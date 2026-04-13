@@ -47,7 +47,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: cubit.orders.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        separatorBuilder: (_, _) => const SizedBox(height: 12),
                         itemBuilder: (context, index) {
                           final order = cubit.orders[index];
                           return Column(

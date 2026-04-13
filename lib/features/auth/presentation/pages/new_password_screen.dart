@@ -20,66 +20,63 @@ class NewPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: Scaffold(
-        appBar: AuthAppBar(),
-        body: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is AuthLoadingState) {
-              showLoadingDialog(context);
-            } else if (state is AuthSuccessState) {
-              pop(context);
-              pushReplaceMent(context, Routes.passwordChanged);
-            } else if (state is AuthErrorState) {
-              pop(context);
-              showMyDialog(context, 'failedResetPassword'.tr());
-            }
-          },
-          builder: (context, state) {
-            var cubit = context.read<AuthCubit>();
-            return Padding(
-              padding: EdgeInsets.all(22),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('newpassword'.tr(), style: TextStyles.headline),
-                  Gap(10),
-                  Text(
-                    'newpasswordmsg'.tr(),
-                    style: TextStyles.body.copyWith(color: AppColors.greyColor),
-                  ),
-                  Gap(32),
-                  PasswordTextFormField(
-                    controller: cubit.newPasswordController,
-                    hintText: 'newpassword'.tr(),
-                    validator: AppValidators.password,
-                  ),
-                  Gap(15),
-                  PasswordTextFormField(
-                    controller: cubit.confirmNewPasswordController,
-                    hintText: 'confirmNewPassword'.tr(),
-                    validator: (input) {
-                      if (input == null || input.isEmpty) {
-                        return 'validConfirmPassword'.tr();
-                      } else if (input != cubit.newPasswordController.text) {
-                        return 'validPasswordMatch'.tr();
-                      }
-                      return null;
-                    },
-                  ),
-                  Gap(38),
-                  MainButton(
-                    text: 'resetPassword2'.tr(),
-                    onPressed: () {
-                      cubit.resetPassword(verifyCode);
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+    return Scaffold(
+      appBar: AuthAppBar(),
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthLoadingState) {
+            showLoadingDialog(context);
+          } else if (state is AuthSuccessState) {
+            pop(context);
+            pushReplaceMent(context, Routes.passwordChanged);
+          } else if (state is AuthErrorState) {
+            pop(context);
+            showMyDialog(context, 'failedResetPassword'.tr());
+          }
+        },
+        builder: (context, state) {
+          var cubit = context.read<AuthCubit>();
+          return Padding(
+            padding: EdgeInsets.all(22),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('newpassword'.tr(), style: TextStyles.headline),
+                Gap(10),
+                Text(
+                  'newpasswordmsg'.tr(),
+                  style: TextStyles.body.copyWith(color: AppColors.greyColor),
+                ),
+                Gap(32),
+                PasswordTextFormField(
+                  controller: cubit.newPasswordController,
+                  hintText: 'newpassword'.tr(),
+                  validator: AppValidators.password,
+                ),
+                Gap(15),
+                PasswordTextFormField(
+                  controller: cubit.confirmNewPasswordController,
+                  hintText: 'confirmNewPassword'.tr(),
+                  validator: (input) {
+                    if (input == null || input.isEmpty) {
+                      return 'validConfirmPassword'.tr();
+                    } else if (input != cubit.newPasswordController.text) {
+                      return 'validPasswordMatch'.tr();
+                    }
+                    return null;
+                  },
+                ),
+                Gap(38),
+                MainButton(
+                  text: 'resetPassword2'.tr(),
+                  onPressed: () {
+                    cubit.resetPassword(verifyCode);
+                  },
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

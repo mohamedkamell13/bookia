@@ -1,9 +1,9 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/features/faq/presentation/cubit/faq_cubit.dart';
 import 'package:bookia/features/faq/presentation/cubit/faq_state.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,58 +23,65 @@ class _FaqScreenState extends State<FaqScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const CustomBackButton(),
-        automaticallyImplyLeading: false,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-
-        child: BlocBuilder<FaqCubit, FaqState>(
-          builder: (context, state) {
-            if (state is FaqLoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (state is FaqErrorState) {
-              return Center(child: Text(state.message));
-            }
-            if (state is FaqSuccessState) {
-              final faqs = context.read<FaqCubit>().faqs;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('FAQ'.tr(), style: TextStyles.headline),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: faqs.length,
-                      separatorBuilder: (_, _) => const SizedBox(height: 8),
-                      itemBuilder: (context, index) {
-                        final faq = faqs[index];
-                        return ExpansionTile(
-                          title: Text(faq.question, style: TextStyles.body),
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                              child: Text(
-                                faq.answer,
-                                style: TextStyles.body.copyWith(
-                                  color: Colors.grey,
+    return BlocProvider(
+      create: (context) => sl<FaqCubit>()..getFaqs(),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          title: const CustomBackButton(),
+          automaticallyImplyLeading: false,
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(20),
+          child: BlocBuilder<FaqCubit, FaqState>(
+            builder: (context, state) {
+              if (state is FaqLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (state is FaqErrorState) {
+                return Center(child: Text(state.message));
+              }
+              if (state is FaqSuccessState) {
+                final faqs = context.read<FaqCubit>().faqs;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('FAQ'.tr(), style: TextStyles.headline),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: ListView.separated(
+                        itemCount: faqs.length,
+                        separatorBuilder: (_, _) => const SizedBox(height: 8),
+                        itemBuilder: (context, index) {
+                          final faq = faqs[index];
+                          return ExpansionTile(
+                            title: Text(faq.question, style: TextStyles.body),
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                  16,
+                                  0,
+                                  16,
+                                  16,
+                                ),
+                                child: Text(
+                                  faq.answer,
+                                  style: TextStyles.body.copyWith(
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        );
-                      },
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              );
-            }
-            return const SizedBox();
-          },
+                  ],
+                );
+              }
+              return const SizedBox();
+            },
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/functions/extensions.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..initLoad(),
+      create: (context) => sl<HomeCubit>()..initLoad(),
       child: Builder(
         builder: (context) {
           return Scaffold(

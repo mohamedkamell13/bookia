@@ -1,3 +1,4 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/functions/dialogs.dart';
 import 'package:bookia/core/routes/navigations.dart';
 import 'package:bookia/core/styles/colors.dart';
@@ -15,7 +16,7 @@ class CartActionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CartActionCubit(),
+      create: (context) => sl<CartActionCubit>(),
       child: BlocConsumer<CartActionCubit, CartActionState>(
         listener: (context, state) {
           if (state is CartActionsSuccessState) {
@@ -29,12 +30,15 @@ class CartActionWidget extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          var cubit = context.read<CartActionCubit>();
+          var cubit = context.watch<CartActionCubit>();
           bool isInCart = cubit.isProductInCart(id);
+
           return MainButton(
             text: isInCart ? 'addedToCart'.tr() : 'AddToCart'.tr(),
             onPressed: () {
-              if (!cubit.isProductInCart(id)) {
+              if (isInCart) {
+                cubit.removeFromCart(id);
+              } else {
                 cubit.addToCart(id);
               }
             },

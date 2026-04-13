@@ -20,62 +20,57 @@ class OtpVerficationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: Scaffold(
-        appBar: AuthAppBar(),
-        body: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is AuthLoadingState) {
-              showLoadingDialog(context);
-            } else if (state is AuthSuccessState) {
-              pop(context);
-              pushTo(
-                context,
-                Routes.newPassword,
-                extra: int.tryParse(
-                  context.read<AuthCubit>().otpController.text,
-                ),
-              );
-            } else if (state is AuthErrorState) {
-              pop(context);
-              showMyDialog(context, 'invalidCode'.tr());
-            }
-          },
-          builder: (context, state) {
-            var cubit = context.read<AuthCubit>();
-            return Padding(
-              padding: EdgeInsets.all(22),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('otp'.tr(), style: TextStyles.headline),
-                  Gap(10),
-                  Text(
-                    'otpmsg'.tr(),
-                    style: TextStyles.body.copyWith(color: AppColors.greyColor),
-                  ),
-                  Gap(35),
-                  CustomPinput(controller: cubit.otpController),
-                  Gap(35),
-                  MainButton(
-                    text: 'verify'.tr(),
-                    onPressed: () {
-                      cubit.checkForgetPassword(email: email);
-                    },
-                  ),
-                ],
-              ),
+    return Scaffold(
+      appBar: AuthAppBar(),
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthLoadingState) {
+            showLoadingDialog(context);
+          } else if (state is AuthSuccessState) {
+            pop(context);
+            pushTo(
+              context,
+              Routes.newPassword,
+              extra: int.tryParse(context.read<AuthCubit>().otpController.text),
             );
-          },
-        ),
-        bottomNavigationBar: AuthFooter(
-          textSpan: 'didn\'t recieve'.tr(),
-          textButton: 'resend'.tr(),
-          onPressed: () {
-            pushReplaceMent(context, Routes.forgotPassword);
-          },
-        ),
+          } else if (state is AuthErrorState) {
+            pop(context);
+            showMyDialog(context, 'invalidCode'.tr());
+          }
+        },
+        builder: (context, state) {
+          var cubit = context.read<AuthCubit>();
+          return Padding(
+            padding: EdgeInsets.all(22),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('otp'.tr(), style: TextStyles.headline),
+                Gap(10),
+                Text(
+                  'otpmsg'.tr(),
+                  style: TextStyles.body.copyWith(color: AppColors.greyColor),
+                ),
+                Gap(35),
+                CustomPinput(controller: cubit.otpController),
+                Gap(35),
+                MainButton(
+                  text: 'verify'.tr(),
+                  onPressed: () {
+                    cubit.checkForgetPassword(email: email);
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+      bottomNavigationBar: AuthFooter(
+        textSpan: 'didn\'t recieve'.tr(),
+        textButton: 'resend'.tr(),
+        onPressed: () {
+          pushReplaceMent(context, Routes.forgotPassword);
+        },
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:bookia/features/cart/presentation/widgets/cart_builder.dart';
@@ -11,7 +12,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CartCubit()..getCart(),
+      create: (context) => sl<CartCubit>()..getCart(),
       child: Scaffold(
         appBar: AppBar(title: Text('Cart'.tr(), style: TextStyles.headline)),
         body: Padding(padding: const EdgeInsets.all(22), child: CartBuilder()),

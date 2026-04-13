@@ -1,3 +1,4 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:bookia/features/wishlist/presentation/widgets/wishlist_builder.dart';
@@ -11,7 +12,7 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WishlistCubit()..getWishlist(),
+      create: (context) => sl<WishlistCubit>()..getWishlist(),
       child: Scaffold(
         appBar: AppBar(
           title: Text('wishList'.tr(), style: TextStyles.headline),

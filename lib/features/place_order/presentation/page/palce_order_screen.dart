@@ -1,3 +1,4 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
@@ -41,14 +42,14 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PlaceOrderCubit()..getGovernorates(),
+      create: (context) => sl<PlaceOrderCubit>()..getGovernorates(),
       child: Scaffold(
         appBar: AppBar(
           leading: CustomBackButton(),
           automaticallyImplyLeading: false,
         ),
         body: Padding(
-          padding: EdgeInsetsGeometry.all(22),
+          padding: EdgeInsets.all(22),
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
